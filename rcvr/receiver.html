@@ -1,0 +1,51 @@
+<html>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://www.gstatic.com/cast/js/receiver/1.0/cast_receiver.js">
+</script>
+<script type="text/javascript">
+
+	var receiver = new cast.receiver.Receiver(
+	    '77ad2269-71f2-4825-a030-637aea30dc8b', ['other'],
+	    "",
+	    5);
+	var channelHandler = new cast.receiver.ChannelHandler('other');
+	channelHandler.addChannelFactory(receiver.createChannelFactory('other'));
+	
+	receiver.start();
+	channelHandler.addEventListener(cast.receiver.Channel.EventType.MESSAGE, onMessage.bind(this));
+
+	window.addEventListener('load', function() {
+	});
+	
+	var currentImage = null, nextImage = null;
+	
+	setInterval(function() {
+		if (currentImage != null && nextImage != null) {
+			console.log(nextImage.count - currentImage.count);
+		}
+		if (nextImage != null) {
+		$('#screen').attr('src', nextImage.image);
+			currentImage = nextImage;
+		}
+	}, 33);
+	
+	
+	function onMessage(event) {
+		nextImage = event.message;
+		
+		/* You must call window.close() to exit the receiver app.  This one is on a watchdog for test purposes */
+		setTimeout(function() {
+			window.close();
+		}, 30000);
+	}
+
+</script>
+
+<!-- See https://developers.google.com/cast/developing_your_receiver, but you should pad the borders for TV overscan
+		either in the images you display or with the body padding (or something)<body style="padding: 18px 32px; background-color: white">-->
+<body style="">
+	<img id="screen" style="width:100%; height:100%;" src=""/>
+</body>
+
+</html>
