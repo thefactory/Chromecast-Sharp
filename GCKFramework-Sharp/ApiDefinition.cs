@@ -2,6 +2,7 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.ObjCRuntime;
+using System.Text;
 
 namespace Google.Chromecast.iOS {
     [BaseType(typeof(NSObject))]
@@ -48,44 +49,13 @@ namespace Google.Chromecast.iOS {
         [Export("deviceDidGoOffline:")]
         void DeviceDidGoOffline(GCKDevice device);
     }
-    /*[BaseType (typeof(NSObject))]
-    public partial interface GCKApplicationSupportFilterListener : GCKDeviceManagerListener
-    {
-        [Export ("initWithContext:applicationName:protocols:downstreamListener:")]
+
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKApplicationSupportFilterListener : GCKDeviceManagerListener {
+        [Export("initWithContext:applicationName:protocols:downstreamListener:")]
         IntPtr Constructor(GCKContext context, string applicationName, NSObject[] protocolNamespaces, GCKDeviceManagerListener listener);
     }
 
-    [Category, BaseType (typeof(NSData))]
-    public partial interface GCKBase64_NSData
-    {
-        [Static, Export ("gck_dataWithBase64EncodedString:")]
-        NSData Gck_dataWithBase64EncodedString(string encodedString);
-
-        [Export ("gck_base64EncodedString")]
-        string Gck_base64EncodedString();
-
-        [Export ("gck_base64EncodedStringWithWrapWidth:")]
-        string Gck_base64EncodedStringWithWrapWidth(uint width);
-    }
-
-    [Category, BaseType (typeof(NSString))]
-    public partial interface GCKBase64_NSString
-    {
-        [Static, Export ("gck_stringWithBase64EncodedString:")]
-        string Gck_stringWithBase64EncodedString(string encodedString);
-
-        [Export ("gck_base64EncodedString")]
-        string Gck_base64EncodedString();
-
-        [Export ("gck_base64EncodedStringWithWrapWidth:")]
-        string Gck_base64EncodedStringWithWrapWidth(uint wrapWidth);
-
-        [Export ("gck_base64DecodedString")]
-        string Gck_base64DecodedString();
-
-        [Export ("gck_base64DecodedData")]
-        NSData Gck_base64DecodedData();
-    }*/
     [BaseType(typeof(NSObject))]
     public partial interface GCKApplicationChannel {
         [Export("delegate", ArgumentSemantic.Assign)]
@@ -308,156 +278,150 @@ namespace Google.Chromecast.iOS {
 
         [Export("applicationURL", ArgumentSemantic.Copy)]
         NSUrl ApplicationURL { get; set; }
-        //[Export ("icons", ArgumentSemantic.Copy)]
-        //GCKDeviceIcon [] Icons { get; set; }
+
+        [Export("icons", ArgumentSemantic.Copy)]
+        GCKDeviceIcon [] Icons { get; set; }
+
         [Export("initWithIPAddress:")]
         IntPtr Constructor(string ipAddress);
     }
-    /*[BaseType (typeof(NSObject))]
-    public partial interface GCKDeviceIcon
-    {
-        [Export ("width")]
+
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKDeviceIcon {
+        [Export("width")]
         uint Width { get; }
 
-        [Export ("height")]
+        [Export("height")]
         uint Height { get; }
 
-        [Export ("depth")]
+        [Export("depth")]
         uint Depth { get; }
 
-        [Export ("url", ArgumentSemantic.Copy)]
+        [Export("url", ArgumentSemantic.Copy)]
         NSUrl Url { get; }
 
-        [Export ("initWithWidth:height:depth:url:")]
+        [Export("initWithWidth:height:depth:url:")]
         IntPtr Constructor(uint width, uint height, uint depth, NSUrl url);
 
-        [Field ("kGCKNetworkRequestErrorDomain")]
+        [Field("kGCKNetworkRequestErrorDomain", "__Internal")]
         NSString GCKNetworkRequestErrorDomain { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeOK")]
+        [Field("kGCKNetworkRequestErrorCodeOK", "__Internal")]
         int GCKNetworkRequestErrorCodeOK { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeIOError")]
+        [Field("kGCKNetworkRequestErrorCodeIOError", "__Internal")]
         int GCKNetworkRequestErrorCodeIOError { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeTimeout")]
+        [Field("kGCKNetworkRequestErrorCodeTimeout", "__Internal")]
         int GCKNetworkRequestErrorCodeTimeout { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeInvalidResponse")]
+        [Field("kGCKNetworkRequestErrorCodeInvalidResponse", "__Internal")]
         int GCKNetworkRequestErrorCodeInvalidResponse { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeNotFound")]
+        [Field("kGCKNetworkRequestErrorCodeNotFound", "__Internal")]
         int GCKNetworkRequestErrorCodeNotFound { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeAccessDenied")]
+        [Field("kGCKNetworkRequestErrorCodeAccessDenied", "__Internal")]
         int GCKNetworkRequestErrorCodeAccessDenied { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeBusy")]
+        [Field("kGCKNetworkRequestErrorCodeBusy", "__Internal")]
         int GCKNetworkRequestErrorCodeBusy { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeNotSupported")]
+        [Field("kGCKNetworkRequestErrorCodeNotSupported", "__Internal")]
         int GCKNetworkRequestErrorCodeNotSupported { get; }
 
-        [Field ("kGCKNetworkRequestErrorCodeCancelled")]
+        [Field("kGCKNetworkRequestErrorCodeCancelled", "__Internal")]
         int GCKNetworkRequestErrorCodeCancelled { get; }
     }
 
-    [BaseType (typeof(GCKError))]
-    public partial interface GCKNetworkRequestError
-    {
-        [Export ("initWithCode:additionalUserInfo:")]
+    [BaseType(typeof(GCKError))]
+    public partial interface GCKNetworkRequestError {
+        [Export("initWithCode:additionalUserInfo:")]
         IntPtr Constructor(int code, NSDictionary userInfo);
     }
 
-    [Model, BaseType (typeof(NSObject))]
-    public partial interface GCKNetworkRequestDelegate
-    {
-        [Export ("networkRequestDidComplete:")]
+    [Model, BaseType(typeof(NSObject))]
+    public partial interface GCKNetworkRequestDelegate {
+        [Export("networkRequestDidComplete:")]
         void DidComplete(GCKNetworkRequest request);
 
-        [Export ("networkRequest:didFailWithError:")]
+        [Export("networkRequest:didFailWithError:")]
         void DidFailWithError(GCKNetworkRequest request, GCKNetworkRequestError error);
 
-        [Export ("networkRequestWasCancelled:")]
+        [Export("networkRequestWasCancelled:")]
         void WasCancelled(GCKNetworkRequest request);
     }
 
-    [BaseType (typeof(NSObject))]
-    public partial interface GCKNetworkRequest
-    {
-        [Export ("delegate", ArgumentSemantic.Assign)]
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKNetworkRequest {
+        [Export("delegate", ArgumentSemantic.Assign)]
         GCKNetworkRequestDelegate Delegate { get; set; }
 
-        [Export ("responseEncoding")]
+        [Export("responseEncoding")]
         NSStringEncoding ResponseEncoding { get; set; }
 
-        [Export ("initWithContext:")]
+        [Export("initWithContext:")]
         IntPtr Constructor(GCKContext context);
 
-        [Export ("execute")]
+        [Export("execute")]
         void Execute();
 
-        [Export ("cancel")]
+        [Export("cancel")]
         void Cancel();
 
-        [Export ("performHTTPGet:timeout:")]
+        [Export("performHTTPGet:timeout:")]
         void PerformHTTPGet(NSUrl url, double timeout);
 
-        [Export ("performHTTPPost:data:timeout:")]
+        [Export("performHTTPPost:data:timeout:")]
         void PerformHTTPPost(NSUrl url, GCKMimeData data, double timeout);
 
-        [Export ("performHTTPDelete:timeout:")]
+        [Export("performHTTPDelete:timeout:")]
         void PerformHTTPDelete(NSUrl url, double timeout);
 
-        [Export ("processResponseWithStatus:finalURL:headers:data:")]
+        [Export("processResponseWithStatus:finalURL:headers:data:")]
         int ProcessResponseWithStatus(int status, NSUrl finalURL, NSDictionary headers, GCKMimeData data);
 
-        [Export ("parseJson:")]
+        [Export("parseJson:")]
         NSObject ParseJson(string json);
 
-        [Export ("writeJson:")]
+        [Export("writeJson:")]
         string WriteJson(NSObject jsonObject);
 
-        [Export ("didComplete")]
+        [Export("didComplete")]
         void DidComplete();
 
-        [Export ("didFailWithError:")]
+        [Export("didFailWithError:")]
         void DidFailWithError(GCKError error);
     }
 
-    [BaseType (typeof(GCKNetworkRequest))]
-    public partial interface GCKFetchImageRequest
-    {
-        [Export ("image", ArgumentSemantic.Retain)]
+    [BaseType(typeof(GCKNetworkRequest))]
+    public partial interface GCKFetchImageRequest {
+        [Export("image", ArgumentSemantic.Retain)]
         UIImage Image { get; }
 
-        [Export ("initWithContext:url:preferredWidth:preferredHeight:")]
+        [Export("initWithContext:url:preferredWidth:preferredHeight:")]
         IntPtr Constructor(GCKContext context, NSUrl url, uint width, uint height);
 
-        [Export ("initWithContext:url:")]
+        [Export("initWithContext:url:")]
         IntPtr Constructor(GCKContext context, NSUrl url);
     }
 
-    [BaseType (typeof(NSObject))]
-    public partial interface GCKLogger
-    {
-        [Export ("delegate", ArgumentSemantic.Assign)]
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKLogger {
+        [Export("delegate", ArgumentSemantic.Assign)]
         GCKLoggerDelegate Delegate { get; set; }
 
-        [Static, Export ("sharedInstance")]
+        [Static, Export("sharedInstance")]
         GCKLogger SharedInstance();
-
-        //[Export ("logFromFunction:message:")]
-		//void LogFromFunction ([unmapped: pointer: Pointer] function, string format);
     }
 
-    [BaseType (typeof(NSObject))]
+    [BaseType(typeof(NSObject))]
     [Model]
-    public partial interface GCKLoggerDelegate
-    {
-        //[Export ("logFromFunction:message:")]
-		//void Message ([unmapped: pointer: Pointer] function, string message);
-    }*/
+    public partial interface GCKLoggerDelegate {
+        [Export("logFromFunction:message:")]
+        void Message(IntPtr functionName, string message);
+    }
+
     [BaseType(typeof(NSObject))]
     public partial interface GCKMessageSink {
     }
@@ -485,233 +449,184 @@ namespace Google.Chromecast.iOS {
         [Export("sendMessage:")]
         bool SendMessage(NSObject message);
     }
-    /*[BaseType (typeof(NSObject))]
-    public partial interface GCKJsonUtils
-    {
-        [Static, Export ("parseJson:")]
-        NSObject ParseJson(string json);
 
-        [Static, Export ("writeJson:")]
-        string WriteJson(NSObject jsonObject);
-
-        [Static, Export ("isJsonString:equivalentTo:")]
-        bool IsJsonString(string actual, string expected);
-
-        [Field ("kGCKMediaProtocolCommandTypeInfo")]
-        NSString GCKMediaProtocolCommandTypeInfo { get; }
-
-        [Field ("kGCKMediaProtocolCommandTypeLoad")]
-        NSString GCKMediaProtocolCommandTypeLoad { get; }
-
-        [Field ("kGCKMediaProtocolCommandTypePlay")]
-        NSString GCKMediaProtocolCommandTypePlay { get; }
-
-        [Field ("kGCKMediaProtocolCommandTypeStop")]
-        NSString GCKMediaProtocolCommandTypeStop { get; }
-
-        [Field ("kGCKMediaProtocolCommandTypeVolume")]
-        NSString GCKMediaProtocolCommandTypeVolume { get; }
-
-        [Field ("kGCKMediaProtocolCommandTypeSelectTracks")]
-        NSString GCKMediaProtocolCommandTypeSelectTracks { get; }
-
-        [Field ("kGCKMediaProtocolErrorDomain")]
-        NSString GCKMediaProtocolErrorDomain { get; }
-
-        [Field ("kGCKMediaProtocolErrorInvalidPlayerState")]
-        int GCKMediaProtocolErrorInvalidPlayerState { get; }
-
-        [Field ("kGCKMediaProtocolErrorFailedToLoadMedia")]
-        int GCKMediaProtocolErrorFailedToLoadMedia { get; }
-
-        [Field ("kGCKMediaProtocolErrorMediaLoadCancelled")]
-        int GCKMediaProtocolErrorMediaLoadCancelled { get; }
-
-        [Field ("kGCKMediaProtocolErrorInvalidRequest")]
-        int GCKMediaProtocolErrorInvalidRequest { get; }
-    }
-
-    [BaseType (typeof(NSObject))]
-    public partial interface GCKMediaProtocolCommand
-    {
-        [Export ("delegate", ArgumentSemantic.Assign)]
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKMediaProtocolCommand {
+        [Export("delegate", ArgumentSemantic.Assign)]
         GCKMediaProtocolCommandDelegate Delegate { get; set; }
 
-        [Export ("sequenceNumber")]
+        [Export("sequenceNumber")]
         uint SequenceNumber { get; }
 
-        [Export ("type", ArgumentSemantic.Copy)]
+        [Export("type", ArgumentSemantic.Copy)]
         string Type { get; }
 
-        [Export ("cancelled")]
+        [Export("cancelled")]
         bool Cancelled { get; }
 
-        [Export ("completed")]
+        [Export("completed")]
         bool Completed { get; }
 
-        [Export ("hasError")]
+        [Export("hasError")]
         bool HasError { get; set; }
 
-        [Export ("errorDomain", ArgumentSemantic.Copy)]
+        [Export("errorDomain", ArgumentSemantic.Copy)]
         string ErrorDomain { get; set; }
 
-        [Export ("errorCode")]
+        [Export("errorCode")]
         int ErrorCode { get; set; }
 
-        [Export ("errorInfo", ArgumentSemantic.Copy)]
+        [Export("errorInfo", ArgumentSemantic.Copy)]
         NSDictionary ErrorInfo { get; set; }
 
-        [Export ("initWithSequenceNumber:type:")]
+        [Export("initWithSequenceNumber:type:")]
         IntPtr Constructor(uint sequenceNumber, string type);
 
-        [Export ("complete")]
+        [Export("complete")]
         void Complete();
 
-        [Export ("cancel")]
+        [Export("cancel")]
         void Cancel();
     }
 
-    [Model, BaseType (typeof(NSObject))]
-    public partial interface GCKMediaProtocolCommandDelegate
-    {
-        [Export ("mediaProtocolCommandDidComplete:")]
+    [Model, BaseType(typeof(NSObject))]
+    public partial interface GCKMediaProtocolCommandDelegate {
+        [Export("mediaProtocolCommandDidComplete:")]
         void Completed(GCKMediaProtocolCommand command);
 
-        [Export ("mediaProtocolCommandWasCancelled:")]
+        [Export("mediaProtocolCommandWasCancelled:")]
         void Cancelled(GCKMediaProtocolCommand command);
     }
 
-    [BaseType (typeof(GCKMessageStream))]
-    public partial interface GCKMediaProtocolMessageStream
-    {
-        [Export ("delegate", ArgumentSemantic.Assign)]
+    [BaseType(typeof(GCKMessageStream))]
+    public partial interface GCKMediaProtocolMessageStream {
+        [Export("delegate", ArgumentSemantic.Assign)]
         GCKMediaProtocolMessageStreamDelegate Delegate { get; set; }
 
-        [Export ("contentID", ArgumentSemantic.Copy)]
+        [Export("contentID", ArgumentSemantic.Copy)]
         string ContentID { get; }
 
-        [Export ("contentInfo", ArgumentSemantic.Copy)]
+        [Export("contentInfo", ArgumentSemantic.Copy)]
         NSDictionary ContentInfo { get; }
 
-        [Export ("playerState")]
+        [Export("playerState")]
         GCKPlayerState PlayerState { get; }
 
-        [Export ("streamPosition")]
+        [Export("streamPosition")]
         double StreamPosition { get; }
 
-        [Export ("streamDuration")]
+        [Export("streamDuration")]
         double StreamDuration { get; }
 
-        [Export ("mediaTitle", ArgumentSemantic.Copy)]
+        [Export("mediaTitle", ArgumentSemantic.Copy)]
         string MediaTitle { get; }
 
-        [Export ("mediaImageURL", ArgumentSemantic.Copy)]
+        [Export("mediaImageURL", ArgumentSemantic.Copy)]
         NSUrl MediaImageURL { get; }
 
-        [Export ("volume")]
+        [Export("volume")]
         double Volume { get; }
 
-        [Export ("muted")]
+        [Export("muted")]
         bool Muted { get; }
 
-        [Export ("mediaTracks", ArgumentSemantic.Copy)]
+        [Export("mediaTracks", ArgumentSemantic.Copy)]
         NSMutableArray MediaTracks { get; }
 
-        [Export ("loadMediaWithContentID:contentMetadata:")]
+        [Export("loadMediaWithContentID:contentMetadata:")]
         GCKMediaProtocolCommand LoadMediaWithContentID(string contentID, GCKContentMetadata metadata);
 
-        [Export ("loadMediaWithContentID:contentMetadata:autoplay:")]
+        [Export("loadMediaWithContentID:contentMetadata:autoplay:")]
         GCKMediaProtocolCommand LoadMediaWithContentID(string contentID, GCKContentMetadata metadata, bool autoplay);
 
-        [Export ("resumeStream")]
+        [Export("resumeStream")]
         GCKMediaProtocolCommand ResumeStream();
 
-        [Export ("playStream")]
+        [Export("playStream")]
         GCKMediaProtocolCommand PlayStream();
 
-        [Export ("playStreamFrom:")]
+        [Export("playStreamFrom:")]
         GCKMediaProtocolCommand PlayStreamFrom(double position);
 
-        [Export ("stopStream")]
+        [Export("stopStream")]
         bool StopStream();
 
-        [Export ("setStreamVolume:")]
+        [Export("setStreamVolume:")]
         GCKMediaProtocolCommand SetStreamVolume(double volume);
 
-        [Export ("setStreamMuted:")]
+        [Export("setStreamMuted:")]
         GCKMediaProtocolCommand SetStreamMuted(bool muted);
 
-        [Export ("selectTracksToEnable:andDisable:")]
+        [Export("selectTracksToEnable:andDisable:")]
         GCKMediaProtocolCommand SelectTracksToEnable(GCKMediaTrack[] tracksToEnable, GCKMediaTrack[] tracksToDisable);
 
-        [Export ("requestStatus")]
+        [Export("requestStatus")]
         GCKMediaProtocolCommand RequestStatus();
 
-        [Export ("sendKeyResponseForRequestID:withTokens:")]
+        [Export("sendKeyResponseForRequestID:withTokens:")]
         bool SendKeyResponseForRequestID(uint requestID, string[] tokens);
 
-        [Export ("cancelCommand:")]
+        [Export("cancelCommand:")]
         bool CancelCommand(GCKMediaProtocolCommand command);
 
-        [Export ("keyRequestWasReceivedWithRequestID:method:requests:")]
+        [Export("keyRequestWasReceivedWithRequestID:method:requests:")]
         void KeyRequestWasReceivedWithRequestID(int requestID, string method, string[] requests);
     }
 
-    [Model, BaseType (typeof(NSObject))]
-    public partial interface GCKMediaProtocolMessageStreamDelegate
-    {
-        [Export ("mediaProtocolMessageStreamDidReceiveStatusUpdate:")]
+    [Model, BaseType(typeof(NSObject))]
+    public partial interface GCKMediaProtocolMessageStreamDelegate {
+        [Export("mediaProtocolMessageStreamDidReceiveStatusUpdate:")]
         void StatusUpdate(GCKMediaProtocolMessageStream stream);
 
-        [Export ("mediaProtocolMessageStreamDidUpdateTrackList:")]
+        [Export("mediaProtocolMessageStreamDidUpdateTrackList:")]
         void UpdatedTrackList(GCKMediaProtocolMessageStream stream);
 
-        [Export ("mediaProtocolMessageStream:didReceiveErrorWithDomain:code:errorInfo:")]
+        [Export("mediaProtocolMessageStream:didReceiveErrorWithDomain:code:errorInfo:")]
         void Error(GCKMediaProtocolMessageStream stream, string domain, int code, NSDictionary errorInfo);
     }
 
-    [BaseType (typeof(NSObject))]
-    public partial interface GCKMediaTrack
-    {
-        [Export ("initWithIdentifier:type:name:languageCode:enabled:")]
+    [BaseType(typeof(NSObject))]
+    public partial interface GCKMediaTrack {
+        [Export("initWithIdentifier:type:name:languageCode:enabled:")]
         IntPtr Constructor(int identifier, GCKMediaTrackType type, string name, string languageCode, bool enabled);
 
-        [Export ("identifier")]
+        [Export("identifier")]
         int Identifier { get; }
 
-        [Export ("type")]
+        [Export("type")]
         GCKMediaTrackType Type { get; }
 
-        [Export ("name", ArgumentSemantic.Copy)]
+        [Export("name", ArgumentSemantic.Copy)]
         string Name { get; }
 
-        [Export ("languageCode", ArgumentSemantic.Copy)]
+        [Export("languageCode", ArgumentSemantic.Copy)]
         string LanguageCode { get; }
 
-        [Export ("enabled")]
+        [Export("enabled")]
         bool Enabled { get; set; }
 
-        [Field ("kGCKMimeBinary")]
+        [Field("kGCKMimeBinary", "__Internal")]
         NSString GCKMimeBinary { get; }
 
-        [Field ("kGCKMimeForm")]
+        [Field("kGCKMimeForm", "__Internal")]
         NSString GCKMimeForm { get; }
 
-        [Field ("kGCKMimeHTML")]
+        [Field("kGCKMimeHTML", "__Internal")]
         NSString GCKMimeHTML { get; }
 
-        [Field ("kGCKMimeJSON")]
+        [Field("kGCKMimeJSON", "__Internal")]
         NSString GCKMimeJSON { get; }
 
-        [Field ("kGCKMimeText")]
+        [Field("kGCKMimeText", "__Internal")]
         NSString GCKMimeText { get; }
 
-        [Field ("kGCKMimeURL")]
+        [Field("kGCKMimeURL", "__Internal")]
         NSString GCKMimeURL { get; }
 
-        [Field ("kGCKMimeXML")]
+        [Field("kGCKMimeXML", "__Internal")]
         NSString GCKMimeXML { get; }
-    }*/
+    }
+
     [BaseType(typeof(NSObject))]
     public partial interface GCKMimeData {
         [Field("kGCKNetworkRequestDefaultTimeout", "__Internal")]
@@ -771,57 +686,4 @@ namespace Google.Chromecast.iOS {
         [Static, Export("mimeDataWithURL:")]
         GCKMimeData MimeDataWithURL(NSUrl url);
     }
-    /*[Category, BaseType (typeof(NSString))]
-    public partial interface GCKPatternMatching_NSString
-    {
-        [Export ("gck_matchesPattern:")]
-        bool Gck_matchesPattern(string regexPattern);
-    }
-
-    [BaseType (typeof(NSObject))]
-    public partial interface GCKSimpleHTTPRequest
-    {
-        [Export ("delegate", ArgumentSemantic.Assign)]
-        GCKSimpleHTTPRequestDelegate Delegate { get; set; }
-
-        [Export ("timeout")]
-        double Timeout { get; set; }
-
-        [Export ("url", ArgumentSemantic.Assign)]
-        NSUrl Url { get; }
-
-        [Export ("finalUrl", ArgumentSemantic.Assign)]
-        NSUrl FinalUrl { get; }
-
-        [Export ("responseHeaders", ArgumentSemantic.Retain)]
-        NSDictionary ResponseHeaders { get; }
-
-        [Export ("startGetRequest:")]
-        void StartGetRequest(NSUrl url);
-
-        [Export ("startPostRequest:data:")]
-        void StartPostRequest(NSUrl url, GCKMimeData data);
-
-        [Export ("setValue:forHTTPHeaderField:")]
-        void SetValue(string value, string field);
-
-        [Export ("startDeleteRequest:")]
-        void StartDeleteRequest(NSUrl url);
-
-        [Export ("cancel")]
-        void Cancel();
-    }
-
-    [Model, BaseType (typeof(NSObject))]
-    public partial interface GCKSimpleHTTPRequestDelegate
-    {
-        [Export ("configureURLRequest:forSimpleHTTPRequest:")]
-        void ForSimpleHTTPRequest(NSUrlRequest request, GCKSimpleHTTPRequest simpleRequest);
-
-        [Export ("httpRequest:didCompleteWithStatusCode:finalURL:headers:data:")]
-        void DidCompleteWithStatusCode(GCKSimpleHTTPRequest request, int status, NSUrl finalURL, NSDictionary headers, GCKMimeData data);
-
-        [Export ("httpRequest:didFailWithError:")]
-        void DidFailWithError(GCKSimpleHTTPRequest request, NSError error);
-    }*/
 }

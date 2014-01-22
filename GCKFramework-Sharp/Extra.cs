@@ -2,6 +2,8 @@
 using MonoTouch.Foundation;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
 
 namespace Google.Chromecast.iOS {
     public class ChromecastManager : GCKApplicationSessionDelegate {
@@ -18,8 +20,19 @@ namespace Google.Chromecast.iOS {
         public event Action<ChromecastSession> ApplicationSessionStarted;
         public event Action<NSError> SessionEnded, SessionStartFailed;
 
-        public ChromecastManager(string contextId) {
-            context = new GCKContext(contextId);
+        public ChromecastManager() : this(false) {
+        }
+
+        public ChromecastManager(bool enableChromecastLogging) : this(enableChromecastLogging,
+                                                                      String.Format("{0}/{1}", (NSString)NSBundle.MainBundle.ObjectForInfoDictionary("CFBundleIdentifier"), 
+                                                                          (NSString)NSBundle.MainBundle.ObjectForInfoDictionary("CFBundleVersion"))) {
+        }
+
+        public ChromecastManager(bool enableChromecastLogging, string userAgentString) {
+            if (enableChromecastLogging) {
+                GCKLogger.SharedInstance().Delegate = new ChromecastLogger();
+            }
+            context = new GCKContext(userAgentString);
             manager = new GCKDeviceManager(context);
             listener = new ChromecastListener(this);
             manager.AddListener(listener);
@@ -71,6 +84,13 @@ namespace Google.Chromecast.iOS {
                 if (manager.DeviceWentOffline != null) {
                     manager.DeviceWentOffline(new ChromecastDevice() { GCKDevice = device });
                 }
+            }
+        }
+
+        private class ChromecastLogger : GCKLoggerDelegate {
+            public override void Message(IntPtr unmanagedFunctionName, string message) {
+                string functionName = Marshal.PtrToStringAnsi(unmanagedFunctionName);
+                Console.WriteLine("{0}: {1}", functionName, message);
             }
         }
 

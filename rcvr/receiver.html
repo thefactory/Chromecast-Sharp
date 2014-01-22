@@ -18,34 +18,24 @@
 	window.addEventListener('load', function() {
 	});
 	
-	var currentImage = null, nextImage = null;
-	
-	setInterval(function() {
-		if (currentImage != null && nextImage != null) {
-			console.log(nextImage.count - currentImage.count);
-		}
-		if (nextImage != null) {
-		$('#screen').attr('src', nextImage.image);
-			currentImage = nextImage;
-		}
-	}, 33);
-	
-	
+	var lastMessageTime = null;
 	function onMessage(event) {
-		nextImage = event.message;
-		
-		/* You must call window.close() to exit the receiver app.  This one is on a watchdog for test purposes */
-		setTimeout(function() {
-			window.close();
-		}, 30000);
+		$('#headline').text(event.message.text);
+		lastMessageTime = new Date();
 	}
+	
+	/* You must call window.close() to exit the receiver app.  This one is on a watchdog.*/
+	setInterval(function() {
+		if (new Date().getTime() - lastMessageTime.getTime() > 30000) {
+			window.close();
+		}
+	}, 30000);
 
 </script>
 
-<!-- See https://developers.google.com/cast/developing_your_receiver, but you should pad the borders for TV overscan
-		either in the images you display or with the body padding (or something)<body style="padding: 18px 32px; background-color: white">-->
-<body style="">
-	<img id="screen" style="width:100%; height:100%;" src=""/>
+<!-- See https://developers.google.com/cast/developing_your_receiver, but you should pad the borders for TV overscan -->
+<body style="padding: 18px 32px; background-color: white">
+	<div id='headline'>Hello world</div>
 </body>
 
 </html>
