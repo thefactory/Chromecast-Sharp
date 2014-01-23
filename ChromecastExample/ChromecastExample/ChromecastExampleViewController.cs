@@ -36,7 +36,7 @@ namespace ChromecastExample {
 
                 castDeviceManager.StopScan();
 
-                castDeviceManager.StartApplication(device, "77ad2269-71f2-4825-a030-637aea30dc8b");
+                castDeviceManager.StartApplication(device, "YOUR_APPID_HERE");
             };
             castDeviceManager.ApplicationSessionStarted += (ChromecastSession session) => {
                 ChromecastStream stream = new ChromecastStream(session, "other");
